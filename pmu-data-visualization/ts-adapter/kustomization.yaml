@@ -4,3 +4,4 @@ configMapGenerator:
     - telegraf.conf
 generatorOptions:
   disableNameSuffixHash: true
+  
