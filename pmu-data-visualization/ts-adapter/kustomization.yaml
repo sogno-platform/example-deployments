@@ -1,0 +1,6 @@
+configMapGenerator:
+  - name: telegraf-rwth-pmu-configmap
+    files:
+    - telegraf.conf
+generatorOptions:
+  disableNameSuffixHash: true
