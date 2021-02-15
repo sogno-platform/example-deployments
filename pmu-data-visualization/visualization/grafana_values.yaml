@@ -1,0 +1,5 @@
+ingress:
+  enabled: true
+  hosts:
+    -  # Add the IP or "HOSTNAME" here
+  path: /
