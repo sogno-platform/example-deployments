@@ -1,0 +1,7 @@
+configMapGenerator:
+  - name: telegraf-configmap
+    files:
+    - telegraf.conf
+generatorOptions:
+  disableNameSuffixHash: true
+  

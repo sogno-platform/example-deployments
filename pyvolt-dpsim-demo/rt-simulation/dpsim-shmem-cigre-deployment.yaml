@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpsim-cigre-mv-simulation
+spec:
+  selector:
+    matchLabels:
+      app: dpsim-cigre-mv-simulation
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: dpsim-cigre-mv-simulation
+    spec:
+      securityContext:
+        runAsUser: 0
+      containers:
+        - name: dpsim-shmem
+          image: sogno/dpsim-shmem
+          resources:
+            requests:
+             memory: 2Gi
+            limits:
+              hugepages-2Mi: 2Gi
+              memory: 2Gi
+          env:
+            - name: HOSTNAME
+              value: dpsim-cigre-mv-simulation
+          volumeMounts:
+          - name: config-volume
+            mountPath: /dpsim/Configs/shmem_CIGRE_MV_PF/Shmem_CIGRE_MV.conf
+            subPath: Shmem_CIGRE_MV.conf
+            # - name: hugepage
+            #mountPath: /hugepages
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: dpsim-cigre-mv-simulation-configmap
+            # - name: hugepage
+            #emptyDir:
+            #medium: HugePages
+      restartPolicy: Always
+status: {}
