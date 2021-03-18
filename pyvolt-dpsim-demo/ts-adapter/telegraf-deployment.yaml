@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf-pyvolt-dpsim
+spec:
+  selector:
+    matchLabels:
+      app: telegraf-sogno
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: telegraf-sogno
+    spec:
+      containers:
+        - name: telegraf-sogno
+          image: rwthacs/telegraf-sogno
+          resources: {}
+          env:
+            - name: HOSTNAME
+              value: telegraf-pyvolt-dpsim
+          volumeMounts:
+          - name: config-volume
+            mountPath: /etc/telegraf/
+      volumes:
+        - name: config-volume
+          configMap:
+            name: telegraf-configmap
+      restartPolicy: Always
+status: {}

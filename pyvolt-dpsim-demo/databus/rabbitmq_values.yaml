@@ -1,0 +1,12 @@
+extraPlugins: rabbitmq_mqtt
+
+service:
+  extraPorts:
+    - name: mqtt
+      port: 1883
+      nodePort: 31883
+  type: NodePort
+
+auth:
+  username: admin
+  password: admin
