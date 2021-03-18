@@ -1,0 +1,7 @@
+configMapGenerator:
+  - name: dpsim-cigre-mv-simulation-configmap
+    files:
+    - Shmem_CIGRE_MV.conf
+generatorOptions:
+  disableNameSuffixHash: true
+  
