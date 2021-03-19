@@ -1,0 +1,401 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-grafana-dashboard
+  labels:
+    grafana_dashboard: '1'
+data:
+  demo-dashboard.json: |-
+      {
+        "annotations": {
+          "list": [
+            {
+              "builtIn": 1,
+              "datasource": "-- Grafana --",
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "type": "dashboard"
+            }
+          ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "links": [],
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "InfluxDB",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 2,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.4.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "alias": "Original N2",
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_4"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimate N2",
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_34"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Node 2",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "InfluxDB",
+            "fieldConfig": {
+              "defaults": {
+                "custom": {}
+              },
+              "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 9
+            },
+            "hiddenSeries": false,
+            "id": 3,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+              "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.4.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "alias": "Original N11",
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_22"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimate N11",
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_44"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Node 11",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ],
+            "yaxis": {
+              "align": false,
+              "alignLevel": null
+            }
+          }
+        ],
+        "refresh": false,
+        "schemaVersion": 27,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": []
+        },
+        "time": {
+          "from": "now-15m",
+          "to": "now"
+        },
+        "timepicker": {},
+        "timezone": "",
+        "title": "Pyvolt-DPsim-Demo",
+        "uid": "eOcXX7wGk",
+        "version": 1
+      }  

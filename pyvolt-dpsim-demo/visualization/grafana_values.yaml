@@ -1,6 +1,28 @@
 ingress:
   enabled: true
   hosts:
-    -  ubuntu-jbu-k3s-2.acs-lab.eonerc.rwth-aachen.de
+    -  hostname.example.org  # put fqdn or ip here
   path: /
-  
+
+datasources: 
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: InfluxDB
+      type: influxdb
+      url: http://influxdb:8086
+      access: proxy
+      database: telegraf
+      user: telegraf
+      password: telegraf
+      jsonData:
+        httpMode: GET
+
+adminUser: demo
+adminPassword: demo
+
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+
