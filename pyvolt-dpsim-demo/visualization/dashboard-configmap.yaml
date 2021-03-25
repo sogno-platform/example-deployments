@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sample-grafana-dashboard
+  name: demo-grafana-dashboard
   labels:
     grafana_dashboard: '1'
 data:
-  demo-dashboard.json: |-
+  demo-dashboard.json: | 
       {
         "annotations": {
           "list": [
@@ -105,6 +105,12 @@ data:
                     {
                       "params": [],
                       "type": "last"
+                    },
+                    {
+                      "params": [
+                        " / 1000"
+                      ],
+                      "type": "math"
                     }
                   ]
                 ],
@@ -112,7 +118,7 @@ data:
                   {
                     "key": "topic",
                     "operator": "=",
-                    "value": "/se"
+                    "value": "/dpsim-powerflow"
                   }
                 ]
               },
@@ -283,6 +289,12 @@ data:
                     {
                       "params": [],
                       "type": "last"
+                    },
+                    {
+                      "params": [
+                        " / 1000"
+                      ],
+                      "type": "math"
                     }
                   ]
                 ],
@@ -290,7 +302,7 @@ data:
                   {
                     "key": "topic",
                     "operator": "=",
-                    "value": "/se"
+                    "value": "/dpsim-powerflow"
                   }
                 ]
               },
@@ -390,12 +402,12 @@ data:
           "list": []
         },
         "time": {
-          "from": "now-15m",
-          "to": "now"
+          "from": "2021-03-25T11:42:34.842Z",
+          "to": "2021-03-25T11:45:15.486Z"
         },
         "timepicker": {},
         "timezone": "",
         "title": "Pyvolt-DPsim-Demo",
         "uid": "eOcXX7wGk",
         "version": 1
-      }  
+      }
