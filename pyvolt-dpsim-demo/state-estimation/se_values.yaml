@@ -1,0 +1,6 @@
+mqtt:
+  broker: rabbitmq
+  port: 1883
+  username: admin
+  password: admin
+
