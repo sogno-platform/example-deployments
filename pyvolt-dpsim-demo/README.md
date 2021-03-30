@@ -1,9 +1,12 @@
 # Pyvolt DPsim Demo
 
-Ensure the SOGNO Helm Chart Repo is setup or add it:
+Ensure that the following Helm Chart Repos are set up or add them locally:
 
 ```bash
 helm repo add sogno https://sogno-platform.github.io/helm-charts
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add influxdata https://influxdata.github.io/helm-charts
+
 ```
 
 ## Databus
@@ -34,6 +37,14 @@ kubectl apply -f visualization/dashboard-configmap.yaml
 ```
 The configmap contains a demo dashboard and should automatically be recognized by the grafana instance.
 
+## CIM Editor Pintura
+
+The following installation will deploy a Pintura instance that is available at the nodePort specified in the pintura_values.yaml file. 
+Per defautl at port 31234.
+
+```bash
+helm install pintura sogno/pintura -f cim-editor/pintura_values.yaml 
+```
 ## DPsim Simulation
 
 ```bash
