@@ -1,8 +1,6 @@
-ingress:
-  enabled: true
-  hosts:
-    -  hostname.example.org  # put fqdn or ip here
-  path: /
+service:
+  type: NodePort
+  nodePort: 31230
 
 datasources: 
   datasources.yaml:
