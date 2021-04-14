@@ -9,3 +9,4 @@ We currently provide the following examples.
 More examples to come soon!
 
 - [PMU Data Visualization](pmu-data-visualization)
+- [Pyvolt DPsim Demo](pyvolt-dpsim-demo)
