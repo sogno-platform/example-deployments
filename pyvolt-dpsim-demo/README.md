@@ -77,7 +77,8 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
 ### Visualization
 
-Please check the grafana_values.yaml file and set required fields.
+The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file. 
+Per defautl at port 31230.
 
 ```bash
 helm install grafana grafana/grafana -f visualization/grafana_values.yaml
