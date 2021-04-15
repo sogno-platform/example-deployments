@@ -2,6 +2,12 @@
 
 ## Preliminaries
 
+Clone this repo:
+```bash
+git clone https://github.com/sogno-platform/example-deployments.git
+cd pyvolt-dpsim-demo/
+```
+
 ### Helm Repos
 
 Ensure that the following Helm Chart Repos are set up or add them locally:
@@ -16,7 +22,7 @@ helm repo update
 ```
 ### HugePages
 
-The current setup requires HugePages support for the Realtime-Simulator. This can be checkt and activates as follows:
+The current setup requires HugePages support for the real-time simulator. This can be checked and activated as follows:
 
 ```bash
 # Verify HugePages
@@ -78,18 +84,18 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 ### Visualization
 
 The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file. 
-Per defautl at port 31230.
+Per defautl at port 31230: http://localhost:31230
 
 ```bash
 helm install grafana grafana/grafana -f visualization/grafana_values.yaml
 kubectl apply -f visualization/dashboard-configmap.yaml
 ```
-The configmap contains a demo dashboard and should automatically be recognized by the grafana instance.
+The configmap contains a demo dashboard and should automatically be recognized by the grafana instance. Username and password for Grafana are set to "demo".
 
 ### CIM Editor Pintura
 
 The following installation will deploy a Pintura instance that is available at the nodePort specified in the pintura_values.yaml file. 
-Per defautl at port 31234.
+Per default at port 31234: http://localhost:31234/
 
 ```bash
 helm install pintura sogno/pintura -f cim-editor/pintura_values.yaml 
