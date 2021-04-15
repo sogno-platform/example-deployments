@@ -5,7 +5,7 @@
 Clone this repo:
 ```bash
 git clone https://github.com/sogno-platform/example-deployments.git
-cd pyvolt-dpsim-demo/
+cd example-deployments/pyvolt-dpsim-demo
 ```
 
 ### Helm Repos
