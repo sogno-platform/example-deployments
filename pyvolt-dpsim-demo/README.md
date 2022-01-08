@@ -2,6 +2,9 @@
 
 ## Preliminaries
 
+Follow the instructions here to get started:
+https://sogno-platform.github.io/docs/getting-started/
+
 Clone this repo:
 ```bash
 git clone https://github.com/sogno-platform/example-deployments.git
@@ -22,7 +25,7 @@ helm repo update
 ```
 ### HugePages
 
-The current setup requires HugePages support for the real-time simulator. This can be checked and activated as follows:
+The current setup requires HugePages support for the real-time simulator. This can be checked and activated (temporarily) as follows:
 
 ```bash
 # Verify HugePages
@@ -54,6 +57,9 @@ HugePages_Surp:        0
 Hugepagesize:       2048 kB
 Hugetlb:         2097152 kB
 
+If you don't see 1024 next to HugePages_Total, you may need to restart
+your system and try again with a fresh boot.
+
 # Restart k3s service to apply changes
 sudo systemctl restart k3s
 
@@ -83,7 +89,7 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
 ### Visualization
 
-The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file. 
+The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file.
 Per defautl at port 31230: http://localhost:31230
 
 ```bash
@@ -94,11 +100,11 @@ The configmap contains a demo dashboard and should automatically be recognized b
 
 ### CIM Editor Pintura
 
-The following installation will deploy a Pintura instance that is available at the nodePort specified in the pintura_values.yaml file. 
-Per default at port 31234: http://localhost:31234/
+The following installation will deploy a Pintura instance that is available at the nodePort specified in the pintura_values.yaml file.
+Per default at port 31234: http://localhost:31234/ (it may take a few moments to launch and become available)
 
 ```bash
-helm install pintura sogno/pintura -f cim-editor/pintura_values.yaml 
+helm install pintura sogno/pintura -f cim-editor/pintura_values.yaml
 ```
 ### DPsim Simulation
 
