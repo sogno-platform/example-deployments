@@ -6,6 +6,8 @@ helm install influxdb influxdata/influxdb -f database/influxdb-helm-values.yaml
 
 helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
+helm install my-release -f keycloak/keycloak_values.yaml bitnami/keycloak
+
 helm install grafana grafana/grafana -f visualization/grafana_values.yaml
 kubectl apply -f visualization/dashboard-configmap.yaml
 
