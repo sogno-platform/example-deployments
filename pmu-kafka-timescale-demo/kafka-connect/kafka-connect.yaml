@@ -1,0 +1,42 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: kafka-connect-cluster
+  annotations:
+    strimzi.io/use-connector-resources: "true"
+spec:
+  replicas: 1
+  bootstrapServers: strimzi-cluster-kafka-bootstrap.demo:9092
+  config:
+    group.id: kafka-connect-cluster
+    offset.storage.topic: kafka-connect-cluster-offsets
+    config.storage.topic: kafka-connect-cluster-configs
+    status.storage.topic: kafka-connect-cluster-status
+    key.converter: org.apache.kafka.connect.json.JsonConverter
+    value.converter: org.apache.kafka.connect.json.JsonConverter
+    key.converter.schemas.enable: true
+    value.converter.schemas.enable: true
+    config.storage.replication.factor: 1
+    offset.storage.replication.factor: 1
+    status.storage.replication.factor: 1
+    config.providers: file
+    config.providers.file.class: org.apache.kafka.common.config.provider.FileConfigProvider
+  externalConfiguration:
+    volumes:
+      - name: timescaledb-cluster-credentials
+        secret:
+          secretName: timescaledb-cluster-credentials
+  build:
+    output:
+      type: docker
+      image: registry.example.com/pmu-kafka-timescale-demo/kafka-connect-cluster
+      pushSecret: regcred
+    plugins:
+      - name: confluent-postgres-connector
+        artifacts:
+          - type: zip
+            url: https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-jdbc/versions/10.2.0/confluentinc-kafka-connect-jdbc-10.2.0.zip
+  template:
+    pod:
+      imagePullSecrets:
+        - name: regcred

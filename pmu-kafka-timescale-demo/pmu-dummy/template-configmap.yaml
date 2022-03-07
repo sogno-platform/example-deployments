@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pmu-dummy-template-config
+data:
+  device_template.json: |
+    {
+      "schema": {
+          "type": "struct",
+          "fields": [
+              {
+                  "type": "string",
+                  "optional": false,
+                  "field": "device"
+              },
+              {
+                  "type": "int64",
+                  "optional": false,
+                  "field": "timestamp"
+              },
+              {
+                  "type": "string",
+                  "optional": false,
+                  "field": "component"
+              },
+              {
+                  "type": "string",
+                  "optional": false,
+                  "field": "measurand"
+              },
+              {
+                  "type": "string",
+                  "optional": false,
+                  "field": "phase"
+              },
+              {
+                  "type": "float",
+                  "optional": true,
+                  "field": "data"
+              }
+          ],
+          "optional": false,
+          "name": "pmu-dummy-schema"
+      },
+      "payload": {
+          "device": "device1",
+          "timestamp": "TIMESTAMP",
+          "readings": [
+              {
+                  "component": "BUS1",
+                  "measurand": "voltmagnitude",
+                  "phase": "A",
+                  "data": "RANDOM"
+              },
+              {
+                  "component": "BUS2",
+                  "measurand": "voltmagnitude",
+                  "phase": "B",
+                  "data": "RANDOM"
+              }
+          ]
+      }
+    }

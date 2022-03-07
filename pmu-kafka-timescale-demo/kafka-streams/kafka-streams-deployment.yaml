@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kstreams
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kstreams
+  template:
+    metadata:
+      labels:
+        app: kstreams
+    spec:
+      containers:
+        - name: kstreams
+          image: registry.example.com/pmu-kafka-timescale-demo/kafka-connect-cluster/pmu-streams-connector:latest
+          env:
+            - name: KAFKA_BROKER
+              value: strimzi-cluster-kafka-bootstrap.demo:9092
+            - name: INPUT_TOPIC
+              value: pmu-dummy-in
+            - name: OUTPUT_TOPIC
+              value: pmu-dummy-out
+            - name: APP_ID
+              value: pmu-dummy-app
+      imagePullSecrets:
+        - name: regcred

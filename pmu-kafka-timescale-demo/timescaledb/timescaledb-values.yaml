@@ -1,0 +1,70 @@
+replicaCount: 1
+nameOverride: timescaledb
+clusterName: timescaledb-cluster
+
+loadBalancer:
+  enabled: true
+
+secrets:
+  # credentials:
+    # PATRONI_SUPERUSER_PASSWORD: "5f4dcc3b5aa765d61d8327deb882cf99"
+    # PATRONI_REPLICATION_PASSWORD: "5f4dcc3b5aa765d61d8327deb882cf99"
+    # PATRONI_admin_PASSWORD: "5f4dcc3b5aa765d61d8327deb882cf99"
+  credentialsSecretName: timescaledb-cluster-credentials
+  certificateSecretName: timescaledb-cluster-certificate
+
+resources:
+  {}
+  # limits:
+  #   cpu: 500m
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 250m
+  #   memory: 1Gi
+
+persistentVolumes:
+  data:
+    enabled: true
+    size: 2Gi
+    #storageClass: "managed-nfs-storage"
+    subPath: ""
+    mountPath: "/var/lib/postgresql"
+    annotations: {}
+    accessModes:
+      - ReadWriteOnce
+  wal:
+    enabled: true
+    size: 1Gi
+    subPath: ""
+    storageClass:
+    mountPath: "/var/lib/postgresql/wal"
+    annotations: {}
+    accessModes:
+      - ReadWriteOnce
+
+patroni:
+  bootstrap:
+    dcs:
+      postgresql:
+        parameters:
+          wal_level: logical
+          max_wal_senders: 1
+          max_replication_slots: 1
+  postgresql:
+    authentication:
+      replication:
+        username: standby
+      superuser:
+        username: postgres
+    listen: 0.0.0.0:5432
+    pg_hba:
+      - local     all             postgres                              peer
+      - local     all             all                                   md5
+      - hostnossl all,replication all               all                 reject
+      - hostssl   all             all               127.0.0.1/32        md5
+      - hostssl   all             all               ::1/128             md5
+      - hostssl   replication     standby           all                 md5
+      - hostssl   all             all               all                 md5
+      - local     replication     postgres                              trust
+      - host      replication     postgres          127.0.0.1/32        trust
+      - host      replication     postgres          ::1/128             trust
