@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pmu-dummy
+  labels:
+    app: pmu-dummy
+spec:
+  selector:
+    matchLabels:
+      app: pmu-dummy
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: pmu-dummy
+    spec:
+      containers:
+        - name: pmu-dummy
+          image: registry.example.com/pmu-kafka-timescale-demo/kafka-connect-cluster/pmu-dummy:latest
+          volumeMounts:
+          - name: pmu-dummy-template-config
+            mountPath: /usr/src/app/device_template.json
+            subPath: device_template.json
+          env:
+            #Config for both MQTT and Kafka
+            - name: JSON_TEMPLATE
+              value: /usr/src/app/device_template.json #path for the data template file (/usr/src/app/ is where the Docker image alocates the application files)  
+            - name: PRODUCER_TYPE
+              value: kafka #"mqtt" or "kafka"
+            - name: BROKER_URL
+              value: strimzi-cluster-kafka-bootstrap.demo #FQDN or IP
+            - name: BROKER_PORT
+              value: "9092"
+            - name: TOPIC_NAME
+              value: pmu-dummy-in
+            #MQTT Specific Config
+            - name: MQTT_USER
+              value: admin #USERNAME
+            - name: MQTT_PWD
+              value: admin #PASSWORD
+            - name: MQTT_SSL 
+              value: "false" #toggle ssl true/false
+            - name: MQTT_CAFILE
+              value: "/etc/ssl/certs/DST_Root_CA_X3.pem" #example ca file for let's Encrypt
+            - name: MQTT_DEVICE_NAME
+              value: device1-dummy
+          ports:
+            - containerPort: 3000
+      volumes:
+      - name: pmu-dummy-template-config
+        configMap:
+          name: pmu-dummy-template-config
+          items:
+            - key: device_template.json
+              path: device_template.json
+      imagePullSecrets:
+        - name: regcred

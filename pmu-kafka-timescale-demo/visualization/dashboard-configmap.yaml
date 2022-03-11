@@ -1,0 +1,298 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard
+  labels:
+    grafana_dashboard: '1'
+data:
+  pmu-dashboard.json: | 
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+        {
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "__systemRef": "hideSeriesFrom",
+                "matcher": {
+                  "id": "byNames",
+                  "options": {
+                    "mode": "exclude",
+                    "names": [
+                      "Phase A"
+                    ],
+                    "prefix": "All except:",
+                    "readOnly": true
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 0
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "PCC52D03280B7034C"
+              },
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  data AS \"Phase A\"\nFROM \"pmu-dummy-out\"\nWHERE\n  $__unixEpochFilter(\"timestamp\") AND\n  phase = 'A'\nORDER BY 1",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "data"
+                    ],
+                    "type": "column"
+                  },
+                  {
+                    "params": [
+                      "Phase A"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "table": "\"pmu-dummy-out\"",
+              "timeColumn": "\"timestamp\"",
+              "timeColumnType": "int8",
+              "where": [
+                {
+                  "name": "$__unixEpochFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "datatype": "text",
+                  "name": "",
+                  "params": [
+                    "phase",
+                    "=",
+                    "'A'"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            },
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "PCC52D03280B7034C"
+              },
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  data AS \"Phase B\"\nFROM \"pmu-dummy-out\"\nWHERE\n  $__unixEpochFilter(\"timestamp\") AND\n  phase = 'B'\nORDER BY 1",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "data"
+                    ],
+                    "type": "column"
+                  },
+                  {
+                    "params": [
+                      "Phase B"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "table": "\"pmu-dummy-out\"",
+              "timeColumn": "\"timestamp\"",
+              "timeColumnType": "int8",
+              "where": [
+                {
+                  "name": "$__unixEpochFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "datatype": "text",
+                  "name": "",
+                  "params": [
+                    "phase",
+                    "=",
+                    "'B'"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            },
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "PCC52D03280B7034C"
+              },
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  data AS \"Phase C\"\nFROM \"pmu-dummy-out\"\nWHERE\n  $__unixEpochFilter(\"timestamp\") AND\n  phase = 'C'\nORDER BY 1",
+              "refId": "C",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "data"
+                    ],
+                    "type": "column"
+                  },
+                  {
+                    "params": [
+                      "Phase C"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "table": "\"pmu-dummy-out\"",
+              "timeColumn": "\"timestamp\"",
+              "timeColumnType": "int8",
+              "where": [
+                {
+                  "name": "$__unixEpochFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "datatype": "text",
+                  "name": "",
+                  "params": [
+                    "phase",
+                    "=",
+                    "'C'"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "Kafka - Timescale",
+          "type": "timeseries"
+        }
+      ],
+      "refresh": "",
+      "schemaVersion": 34,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Kafka - Timescale",
+      "uid": "NLINDUF7k",
+      "version": 1,
+      "weekStart": ""
+    }
