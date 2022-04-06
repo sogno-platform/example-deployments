@@ -14,3 +14,5 @@ helm uninstall pintura
 helm uninstall dpsim-demo
 
 helm uninstall pyvolt-demo
+
+helm uninstall my-release
