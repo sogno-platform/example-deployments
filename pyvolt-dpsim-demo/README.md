@@ -22,7 +22,11 @@ helm repo update
 ```
 ### HugePages
 
+<<<<<<< HEAD
 The current setup requires HugePages support for the real-time simulator. This can be checked and activated as follows:
+=======
+The current setup requires HugePages support for the real-time simulator. This can be checked and activated (temporarily) as follows:
+>>>>>>> parent of f93014c... Keycloak added for pyvolt-dpsim-demo
 
 ```bash
 # Verify HugePages
@@ -54,6 +58,12 @@ HugePages_Surp:        0
 Hugepagesize:       2048 kB
 Hugetlb:         2097152 kB
 
+<<<<<<< HEAD
+=======
+If you don't see 1024 next to HugePages_Total, you may need to restart
+your system and try again with a fresh boot.
+
+>>>>>>> parent of f93014c... Keycloak added for pyvolt-dpsim-demo
 # Restart k3s service to apply changes
 sudo systemctl restart k3s
 
@@ -83,7 +93,11 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
 ### Visualization
 
+<<<<<<< HEAD
 The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file. 
+=======
+The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file.
+>>>>>>> parent of f93014c... Keycloak added for pyvolt-dpsim-demo
 Per defautl at port 31230: http://localhost:31230
 
 ```bash
