@@ -22,14 +22,9 @@ helm repo add influxdata https://influxdata.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 ```
-<<<<<<< HEAD
 ### HugePages
 
-<<<<<<< HEAD
-The current setup requires HugePages support for the real-time simulator. This can be checked and activated as follows:
-=======
-The current setup requires HugePages support for the real-time simulator. This can be checked and activated (temporarily) as follows:
->>>>>>> parent of f93014c... Keycloak added for pyvolt-dpsim-demo
+The current setup requires HugePages support for the real-time simulator. But if you want keycloak sso service , do not do this.This can be checked and activated (temporarily) as follows:
 
 ```bash
 # Verify HugePages
@@ -61,20 +56,15 @@ HugePages_Surp:        0
 Hugepagesize:       2048 kB
 Hugetlb:         2097152 kB
 
-<<<<<<< HEAD
-=======
 If you don't see 1024 next to HugePages_Total, you may need to restart
 your system and try again with a fresh boot.
 
->>>>>>> parent of f93014c... Keycloak added for pyvolt-dpsim-demo
 # Restart k3s service to apply changes
 sudo systemctl restart k3s
 
 # Ensure the KUBECONFIG env is still set correctly
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 ```
-=======
->>>>>>> f93014c3016b99cde3889b3f6a055a4e15777f5a
 
 ## Manual Chart Installation
 
@@ -98,52 +88,24 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
 ### KeyCloak:    
 
-The following installation will deploy a KeyCloak instance that is available at the nodePort specified in the keycloak_values.yaml file.
+The following installation will deploy a KeyCloak instance that is available at the nodePort specified in the keycloak_values.yaml file.The username and password both is "user" for the admin panel.
 Per defautl at port 31250: http://localhost:31250
 
 ```bash
 helm install my-release -f keycloak/keycloak_values.yaml bitnami/keycloak
 ```
-To Get the user password for the keycloak, run this command.
-```bash
- echo Password: $(kubectl get secret --namespace default my-release-keycloak -o jsonpath="{.data.admin-password}" | base64 --decode)
-```
-Login to the keycloak instance. The user name is:user and use the passwrod.
-
-Than Create a realm for common authentication for your applications.
-![alt text](https://i2.wp.com/www.techrunnr.com/wp-content/uploads/2020/07/Screenshot-from-2020-07-12-22-19-43.png?w=775&ssl=1)
-
-Create a client for grafana as given below where root url is your grafana application URL.In this case it will be "http://localhost:31230."
-![alt text](https://i0.wp.com/www.techrunnr.com/wp-content/uploads/2020/07/Screenshot-from-2020-07-12-23-18-38.png?w=850&ssl=1)
-
-Once the client is created, open the client configuration and change the access type to confidential from public. Save the config.
-![alt text](https://i0.wp.com/www.techrunnr.com/wp-content/uploads/2020/07/Screenshot-from-2020-07-12-23-23-08.png?w=702&ssl=1)
-
-Open the client grafana again and go to credentials tag and copy the client id and secret for future use.
-
-![alt text](https://i0.wp.com/www.techrunnr.com/wp-content/uploads/2020/07/Screenshot-from-2020-07-12-23-23-32.png?w=710&ssl=1 )
-
+To create keycloak realm, client and user run the python script keycloak_createion.py.
 
 ### Visualization
 
-<<<<<<< HEAD
 The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file. 
-<<<<<<< HEAD
-=======
-The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file.
->>>>>>> parent of f93014c... Keycloak added for pyvolt-dpsim-demo
-=======
-Change the client_secret with your own.
->>>>>>> f93014c3016b99cde3889b3f6a055a4e15777f5a
 Per defautl at port 31230: http://localhost:31230
 
 ```bash
 helm install grafana grafana/grafana -f visualization/grafana_values.yaml
 kubectl apply -f visualization/dashboard-configmap.yaml
 ```
-The configmap contains a demo dashboard and should automatically be recognized by the grafana instance. Username and password for Grafana are set to "demo".
-
-You have to create a user in the realm you created to use the login with the keylocak feature.
+The configmap contains a demo dashboard and should automatically be recognized by the grafana instance. Username and password for Grafana are set to "demo".Its also the same in the case of login with oauth.
 
 ### CIM Editor Pintura
 

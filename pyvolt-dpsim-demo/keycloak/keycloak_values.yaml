@@ -87,7 +87,7 @@ auth:
   adminUser: user
   ## @param auth.adminPassword Keycloak administrator password for the new user
   ##
-  adminPassword: ""
+  adminPassword: "user"
   ## @param auth.managementUser Wildfly management user
   ##
   managementUser: manager
