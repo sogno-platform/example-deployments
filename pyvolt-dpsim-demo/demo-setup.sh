@@ -8,7 +8,12 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
 helm install my-release -f keycloak/keycloak_values.yaml bitnami/keycloak
 
+sleep 5m
+
+python3 keycloak/keycloak_creation.py 
+
 helm install grafana grafana/grafana -f visualization/grafana_values.yaml
+
 kubectl apply -f visualization/dashboard-configmap.yaml
 
 helm install pintura sogno/pintura -f cim-editor/pintura_values.yaml 

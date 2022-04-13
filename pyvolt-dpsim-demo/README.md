@@ -24,7 +24,7 @@ helm repo update
 ```
 ### HugePages
 
-The current setup requires HugePages support for the real-time simulator. But if you want keycloak sso service , do not do this.This can be checked and activated (temporarily) as follows:
+The current setup requires HugePages support for the real-time simulator. But if you want a keycloak sso service, do not do this. This can be checked and activated (temporarily) as follows:
 
 ```bash
 # Verify HugePages
@@ -33,7 +33,7 @@ cat /proc/meminfo | grep Huge
 AnonHugePages:    104448 kB
 ShmemHugePages:        0 kB
 FileHugePages:         0 kB
-HugePages_Total:       0		<-- we require a minimum of 1024
+HugePages_Total:       0        <-- we require a minimum of 1024
 HugePages_Free:        0
 HugePages_Rsvd:        0
 HugePages_Surp:        0
@@ -88,24 +88,27 @@ helm install telegraf influxdata/telegraf -f ts-adapter/telegraf-values.yaml
 
 ### KeyCloak:    
 
-The following installation will deploy a KeyCloak instance that is available at the nodePort specified in the keycloak_values.yaml file.The username and password both is "user" for the admin panel.
-Per defautl at port 31250: http://localhost:31250
+The following installation will deploy a KeyCloak instance that is available at the nodePort specified in the keycloak_values.yaml file. The username and password both are "user" for the admin panel.
+Per default at port 31250: http://localhost:31250
 
 ```bash
 helm install my-release -f keycloak/keycloak_values.yaml bitnami/keycloak
 ```
-To create keycloak realm, client and user run the python script keycloak_createion.py.
+Please wait for 3 minutes for the keycloak to deploy properly. To create keycloak realm, client and user run the python script keycloak_createion.py.
 
+```bash
+python3 keycloak/keycloak_creation.py 
+```
 ### Visualization
 
 The following installation will deploy a Grafana instance that is available at the nodePort specified in the grafana_values.yaml file. 
-Per defautl at port 31230: http://localhost:31230
+Per default at port 31230: http://localhost:31230
 
 ```bash
 helm install grafana grafana/grafana -f visualization/grafana_values.yaml
 kubectl apply -f visualization/dashboard-configmap.yaml
 ```
-The configmap contains a demo dashboard and should automatically be recognized by the grafana instance. Username and password for Grafana are set to "demo".Its also the same in the case of login with oauth.
+The configmap contains a demo dashboard and should automatically be recognized by the grafana instance. The username and password for Grafana are set to "demo".It's also the same in the case of login with oauth.
 
 ### CIM Editor Pintura
 
