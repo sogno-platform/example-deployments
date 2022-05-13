@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2016-02-18T19:14:38Z
+  name: aws-config
+  namespace: default
+data:
+  credentials: |-
+    [default]
+    aws_access_key_id=SECRETUSER
+    aws_secret_access_key=really/secure/pass
+  config: |-
+    [default]
+    region=us-west-2
+    output=json
+    signature_version = s3v4
+  setup: |-
+    #!/bin/bash
+    aws --endpoint-url http://minio:9000 s3 mb s3://sogno-platform
