@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: sogno-file-service
+spec:
+  selector:
+    matchLabels:
+      app: sogno-file-service
+  template:
+    metadata:
+      labels:
+        app: sogno-file-service
+    spec:
+      containers:
+        - name: sogno-file-service
+          image: sogno/file-service
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name:      aws-config-volume
+              mountPath: /usr/src/app/.aws
+      volumes:
+        - name: aws-config-volume
+          configMap:
+            name: aws-fs-config
+            defaultMode: 511
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sogno-file-service
+spec:
+  selector:
+    app: sogno-file-service
+  ports:
+    - name: "8080"
+      protocol: TCP
+      port: 8080
