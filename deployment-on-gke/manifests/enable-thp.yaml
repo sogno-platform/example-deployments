@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: enable-thp
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: enable-thp
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: enable-thp
+    spec:
+      tolerations:
+      - key: gke-thp
+        operator: Exists
+        effect: NoSchedule
+      hostPID: true
+      volumes:
+      - name: host
+        hostPath:
+          path: /
+      containers:
+      - image: gcr.io/google-containers/pause:2.0
+        name: pause
+      initContainers:
+      - name: enable-thp
+        image: ubuntu
+        command:
+        - /bin/bash
+        - -c
+        - |
+          echo "Set up huge pages"
+          echo 1024 | sudo tee /proc/sys/vm/nr_hugepages
+          echo "Restart Kubelet configuration"
+          chroot /host systemctl restart kubelet
+          echo "patching kubelet configuration done."
+        volumeMounts:
+        - name: host
+          mountPath: /host
+        securityContext:
+          privileged: true

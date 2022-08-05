@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: pintura
+    app.kubernetes.io/name: pintura
+  name: pintura
+spec:
+  ports:
+  - name: http
+    nodePort: 31234
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/instance: pintura
+    app.kubernetes.io/name: pintura
+  sessionAffinity: None
+  type: LoadBalancer
