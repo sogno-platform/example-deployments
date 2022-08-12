@@ -1,0 +1,41 @@
+#WARNING: installation will fail in case of air-gapped or proxied systems.
+
+Vagrant.configure("2") do |config|
+  config.vm.network "forwarded_port", guest: 31230, host: 31230, protocol: "tcp"
+  config.vm.network "forwarded_port", guest: 31234, host: 31234, protocol: "tcp"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, protocol: "tcp"
+  config.vm.network "forwarded_port", guest: 6443, host: 6443, protocol: "tcp" #k3s control plane
+  config.vm.box = "ubuntu/jammy64"        ## official canonical image 22.04 lts
+  #commmon provisioning for all demos
+  config.vm.provision :shell, path: "vagrant-basic-bootstrap.sh"
+  #pyvolt-dpsim-demo https://github.com/sogno-platform/example-deployments/tree/main/pyvolt-dpsim-demo 
+  config.vm.define "pyvoltdpsim" do |pyvoltdpsim|
+    pyvoltdpsim.vm.hostname = "pyvoltdpsim"
+    pyvoltdpsim.vm.provision :shell, path: "./pyvoltdpsimdemo.sh"
+    pyvoltdpsim.vm.provider "virtualbox" do |v|
+        v.name = "pyvoltdpsim"
+        v.memory = 8192
+        v.cpus = 2
+      end
+  end
+  #simulation-demo https://github.com/sogno-platform/example-deployments/tree/main/simulation-demo
+  config.vm.define "simulation" do |simulation|
+    simulation.vm.hostname = "simulation"
+    simulation.vm.provision :shell, path: "./simulationdemo.sh"
+    simulation.vm.provider "virtualbox" do |v|
+        v.name = "simulation"
+        v.memory = 8192
+        v.cpus = 2
+      end
+  end
+  #pmu data visualization demo https://github.com/sogno-platform/example-deployments/tree/main/pmu-data-visualization
+  config.vm.define "pmudatavisualization" do |pmudatavisualization|
+    pmudatavisualization.vm.hostname = "pmudatavisualization"
+    pmudatavisualization.vm.provision :shell, path:  "./pmudatavisualizationdemo.sh"
+    pmudatavisualization.vm.provider "virtualbox" do |v|
+        v.name = "pmudatavisualization"
+        v.memory = 8192
+        v.cpus = 2
+      end
+  end 
+end
