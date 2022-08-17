@@ -1,6 +1,41 @@
 #!/usr/bin/env bash
+cd /home/vagrant
+#first of all we need to install minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-cd example-deployments/simulation-demo
+getent group docker ||sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo usermod -aG docker vagrant && newgrp docker #bash scritps are run as root on provisioning
+
+#sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+#sudo chmod g+rwx "$HOME/.docker" -R
+
+
+#minikube requires golang and cri-dockerd
+cd /home/vagrant
+git clone https://github.com/Mirantis/cri-dockerd.git
+sudo apt-get install golang -y
+cd /home/vagrant/cri-dockerd
+mkdir -p bin
+go get && go build -o bin/cri-dockerd
+mkdir -p /usr/local/bin
+sudo install -o $USER -g $USER -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
+sudo cp -a packaging/systemd/* /etc/systemd/system
+sudo sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
+sudo systemctl daemon-reload
+sudo systemctl enable cri-docker.service
+sudo systemctl enable --now cri-docker.socket
+
+#helm requires the kubectl configuration stored in ~/.kube/config so it must be available also for root
+mkdir -p /root/.kube
+cp /home/vagrant/.kube/config /root/.kube/config
+chmod 644 /root/.kube
+
+minikube kubectl -- get po -A #install compliant version of kubectl
+minikube start --force
+
+cd /home/vagrant/example-deployments/simulation-demo
 set -o nounset
 set -o errexit
 
@@ -8,36 +43,34 @@ set -o errexit
 #pushd $SCRIPT_DIR && echo "Changed to $SCRIPT_DIR"
 
 #cleanup in case of halted vm wich is reprovisioning
-k3s kubectl delete deployments --all
-k3s kubectl delete services --all
-k3s kubectl delete pods --all --grace-period=0 --force
-k3s kubectl delete daemonset --all
+#kubectl delete deployments --all
+#kubectl delete services --all
+#kubectl delete pods --all --grace-period=0 --force
+#kubectl delete daemonset --all
 
-echo "Starting rabbitmq"
-k3s kubectl apply -f ./rabbitmq/deployment.yaml --kubeconfig /etc/rancher/k3s/k3s.yaml
-k3s kubectl apply -f ./rabbitmq/service.yaml --kubeconfig /etc/rancher/k3s/k3s.yaml
+#echo "Starting rabbitmq"
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/rabbitmq/deployment.yaml 
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/rabbitmq/service.yaml 
 
-REDISISRUNNING=`k3s kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml get pod redis-master-0 --output="jsonpath={.status.containerStatuses[*].ready}" | cut -d' ' -f2`
+REDISISRUNNING=`kubectl get pod redis-master-0 --output="jsonpath={.status.containerStatuses[*].ready}" | cut -d' ' -f2`
 echo "Redis already running? $REDISISRUNNING";
 if [ ! "$REDISISRUNNING" = true ] ;
 then
     echo "installing redis" 
-    sudo helm install redis --set auth.enabled=false bitnami/redis --kubeconfig /etc/rancher/k3s/k3s.yaml
+    sudo helm install redis --set auth.enabled=false bitnami/redis 
     echo "installed redis"
 fi
 
-echo "Starting minio"  
-k3s kubectl apply -f ./minio/deployment.yaml --kubeconfig /etc/rancher/k3s/k3s.yaml
-k3s kubectl apply -f ./minio/service.yaml --kubeconfig /etc/rancher/k3s/k3s.yaml
-k3s kubectl apply -f ./minio/configmap.yaml --kubeconfig /etc/rancher/k3s/k3s.yaml
+#echo "Starting minio"  
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/minio/deployment.yaml 
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/minio/service.yaml 
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/minio/configmap.yaml 
+#
 
-#installing minikube
-#curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
-#sudo dpkg -i minikube_latest_amd64.deb
-#minikube ssh docker pull amazon/aws-cli
-
+minikube ssh docker pull amazon/aws-cli
+#
 echo "Creating sogno-platform bucket"
-k3s kubectl run --kubeconfig /etc/rancher/k3s/k3s.yaml --rm -i --tty aws-cli --overrides='
+kubectl run --rm -i --tty aws-cli --overrides='
 {
   "apiVersion": "v1",
   "kind": "Pod",
@@ -77,16 +110,14 @@ k3s kubectl run --kubeconfig /etc/rancher/k3s/k3s.yaml --rm -i --tty aws-cli --o
 }
 '  --image=amazon/aws-cli --restart=Never --
 
-
 echo "Starting file service" &&
-k3s kubectl apply -f ./file-service/deployment.yaml
-k3s kubectl apply -f ./file-service/configmap.yaml
-
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/file-service/deployment.yaml
+kubectl apply -f /home/vagrant/example-deployments/simulation-demo/file-service/configmap.yaml
 
 echo "Starting dpsim api" &&
-sudo helm install dpsim-api sogno/dpsim-api --kubeconfig /etc/rancher/k3s/k3s.yaml
+sudo helm install dpsim-api sogno/dpsim-api 
 echo "Starting dpsim worker" && 
-sudo helm install dpsim-worker sogno/dpsim-worker --kubeconfig /etc/rancher/k3s/k3s.yaml
+sudo helm install dpsim-worker sogno/dpsim-worker 
 
 echo "Pods running:"
-k3s kubectl get pods --all-namespaces -o wide
+minikube kubectl get po -A

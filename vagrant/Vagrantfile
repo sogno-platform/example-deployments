@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080, protocol: "tcp"
   config.vm.network "forwarded_port", guest: 6443, host: 6443, protocol: "tcp" #k3s control panel
   config.vm.box = "ubuntu/jammy64"        ## official canonical image 22.04 lts
+
   #commmon provisioning for all demos
   config.vm.provision :shell, path: "vagrant-basic-bootstrap.sh"
   config.vm.provider "vmware_workstation" do |v, override|

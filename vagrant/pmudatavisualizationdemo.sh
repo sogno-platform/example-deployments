@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+#installing k3s
+if ! command -v k3s &> /dev/null
+then
+    echo "------- K3S could not be found let's install it -------"
+    curl -sfL https://get.k3s.io | sh -
+    sudo chown -R vagrant /etc/rancher/k3s/
+    sudo helm --kubeconfig /etc/rancher/k3s/k3s.yaml list
+    ##getting pid of installation to wait until completed
+    PID_K3S_INSTALLATION=$!
+    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+    #appending variable to bashrc if not exists (to prevent mutliple lines added after repeated provision executions)
+    grep -qxF 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' ~/.bashrc || echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
+    ##must wait web interface of k3s is available to prevent errors on provisioning
+    wait $PID_K3S_INSTALLATION
+fi
+echo "Pods running:"
+k3s kubectl get pods --all-namespaces -o wide
+
 #cleanup in case of halted vm wich is reprovisioning
 k3s kubectl delete deployments --all
 k3s kubectl delete services --all
