@@ -122,7 +122,7 @@ sudo helm install dpsim-worker sogno/dpsim-worker
 
 #passing configuration to minikube kubectl commands
 mkdir -p /home/vagrant/.kube
-sudo kubectl config view --raw  >/home/vagrant/.kube/config
+sudo kubectl config view --raw  >> /home/vagrant/.kube/config
 
 echo "Pods running:"
 sudo kubectl get pods -o wide
