@@ -20,7 +20,7 @@ cd /home/vagrant/cri-dockerd
 mkdir -p bin
 go get && go build -o bin/cri-dockerd
 mkdir -p /usr/local/bin
-sudo install -o $USER -g $USER -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
+sudo install -o vagrant -g vagrant -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
 sudo cp -a packaging/systemd/* /etc/systemd/system
 sudo sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
 sudo systemctl daemon-reload
@@ -119,5 +119,10 @@ sudo helm install dpsim-api sogno/dpsim-api
 echo "Starting dpsim worker" && 
 sudo helm install dpsim-worker sogno/dpsim-worker 
 
+
+#passing configuration to minikube kubectl commands
+mkdir -p /home/vagrant/.kube
+sudo kubectl config view --raw  >/home/vagrant/.kube/config
+
 echo "Pods running:"
-minikube kubectl get po -A
+sudo kubectl get pods -o wide
