@@ -16,3 +16,7 @@ We currently provide the following examples:
 - [PMU Data Visualization](pmu-data-visualization) execute:  `cd vagrant && vagrant up pmudatavisualization`
 - [Pyvolt DPsim Demo](pyvolt-dpsim-demo) execute:  `cd vagrant && vagrant up pyvoltdpsim`
 - [Simulation Demo](simulation-demo) execute: `cd vagrant && vagrant up simulation`
+
+In case VMware is preferred please run appending:
+
+`cd vagrant && vagrant up <the-demo-you-want> --provider vmware_desktop`
