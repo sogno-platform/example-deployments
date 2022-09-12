@@ -11,253 +11,866 @@ data:
           "list": [
             {
               "builtIn": 1,
-              "datasource": "-- Grafana --",
+              "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
+              },
               "enable": true,
               "hide": true,
               "iconColor": "rgba(0, 211, 255, 1)",
               "name": "Annotations & Alerts",
+              "target": {
+                "limit": 100,
+                "matchAny": false,
+                "tags": [],
+                "type": "dashboard"
+              },
               "type": "dashboard"
             }
           ]
         },
         "editable": true,
-        "gnetId": null,
+        "fiscalYearStartMonth": 0,
         "graphTooltip": 0,
+        "id": 3,
         "links": [],
+        "liveNow": false,
         "panels": [
           {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "InfluxDB",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
+            "collapsed": true,
             "gridPos": {
-              "h": 9,
+              "h": 1,
               "w": 24,
               "x": 0,
-              "y": 0
+              "y": 8
             },
-            "hiddenSeries": false,
-            "id": 2,
-            "legend": {
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "show": true,
-              "total": false,
-              "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-              "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.4.3",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
+            "id": 9,
+            "panels": [
               {
-                "alias": "Original N2",
-                "groupBy": [
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "palette-classic"
+                    },
+                    "custom": {
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                        "legend": false,
+                        "tooltip": false,
+                        "viz": false
+                      },
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                        "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                        "group": "A",
+                        "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                        "mode": "off"
+                      }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green"
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 1
+                },
+                "id": 4,
+                "options": {
+                  "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                  },
+                  "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                  }
+                },
+                "pluginVersion": "9.0.5",
+                "targets": [
                   {
-                    "params": [
-                      "$__interval"
+                    "alias": "Original N1",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
                     ],
-                    "type": "time"
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_2"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        },
+                        {
+                          "params": [
+                            " / 1000"
+                          ],
+                          "type": "math"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
                   },
                   {
-                    "params": [
-                      "linear"
+                    "alias": "Estimate N1",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
                     ],
-                    "type": "fill"
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_32"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
                   }
                 ],
-                "measurement": "mqtt_consumer",
-                "orderByTime": "ASC",
-                "policy": "default",
-                "queryType": "randomWalk",
-                "refId": "A",
-                "resultFormat": "time_series",
-                "select": [
-                  [
-                    {
-                      "params": [
-                        "data_4"
-                      ],
-                      "type": "field"
-                    },
-                    {
-                      "params": [],
-                      "type": "last"
-                    },
-                    {
-                      "params": [
-                        " / 1000"
-                      ],
-                      "type": "math"
-                    }
-                  ]
-                ],
-                "tags": [
-                  {
-                    "key": "topic",
-                    "operator": "=",
-                    "value": "/dpsim-powerflow"
-                  }
-                ]
+                "title": "Node 1",
+                "type": "timeseries"
               },
               {
-                "alias": "Estimate N2",
-                "groupBy": [
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "palette-classic"
+                    },
+                    "custom": {
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                        "legend": false,
+                        "tooltip": false,
+                        "viz": false
+                      },
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                        "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                        "group": "A",
+                        "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                        "mode": "off"
+                      }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green"
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 10
+                },
+                "id": 7,
+                "options": {
+                  "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                  },
+                  "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                  }
+                },
+                "pluginVersion": "9.0.5",
+                "targets": [
                   {
-                    "params": [
-                      "$__interval"
+                    "alias": "Original theta N2",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
                     ],
-                    "type": "time"
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_3"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
                   },
                   {
-                    "params": [
-                      "linear"
-                    ],
-                    "type": "fill"
-                  }
-                ],
-                "hide": false,
-                "measurement": "mqtt_consumer",
-                "orderByTime": "ASC",
-                "policy": "default",
-                "queryType": "randomWalk",
-                "refId": "B",
-                "resultFormat": "time_series",
-                "select": [
-                  [
-                    {
-                      "params": [
-                        "data_34"
-                      ],
-                      "type": "field"
+                    "alias": "Exstimated theta N2",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
                     },
-                    {
-                      "params": [],
-                      "type": "last"
-                    }
-                  ]
-                ],
-                "tags": [
-                  {
-                    "key": "topic",
-                    "operator": "=",
-                    "value": "/se"
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_33"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
                   }
-                ]
+                ],
+                "title": "Node 1 - Imag",
+                "type": "timeseries"
               }
             ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Node 2",
-            "tooltip": {
-              "shared": true,
-              "sort": 0,
-              "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
-            },
-            "yaxes": [
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              },
-              {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
-              }
-            ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
+            "title": "Node 1",
+            "type": "row"
           },
           {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "InfluxDB",
-            "fieldConfig": {
-              "defaults": {
-                "custom": {}
-              },
-              "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
+            "collapsed": true,
             "gridPos": {
-              "h": 9,
+              "h": 1,
               "w": 24,
               "x": 0,
               "y": 9
             },
-            "hiddenSeries": false,
-            "id": 3,
-            "legend": {
-              "avg": false,
-              "current": false,
-              "max": false,
-              "min": false,
-              "show": true,
-              "total": false,
-              "values": false
+            "id": 6,
+            "panels": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "palette-classic"
+                    },
+                    "custom": {
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                        "legend": false,
+                        "tooltip": false,
+                        "viz": false
+                      },
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                        "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                        "group": "A",
+                        "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                        "mode": "off"
+                      }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green"
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 2
+                },
+                "id": 2,
+                "options": {
+                  "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                  },
+                  "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                  }
+                },
+                "pluginVersion": "9.0.5",
+                "targets": [
+                  {
+                    "alias": "Original N2",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_4"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        },
+                        {
+                          "params": [
+                            " / 1000"
+                          ],
+                          "type": "math"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
+                  },
+                  {
+                    "alias": "Estimate N2",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_34"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
+                  }
+                ],
+                "title": "Node 2",
+                "type": "timeseries"
+              },
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "palette-classic"
+                    },
+                    "custom": {
+                      "axisLabel": "",
+                      "axisPlacement": "auto",
+                      "barAlignment": 0,
+                      "drawStyle": "line",
+                      "fillOpacity": 10,
+                      "gradientMode": "none",
+                      "hideFrom": {
+                        "legend": false,
+                        "tooltip": false,
+                        "viz": false
+                      },
+                      "lineInterpolation": "linear",
+                      "lineWidth": 1,
+                      "pointSize": 5,
+                      "scaleDistribution": {
+                        "type": "linear"
+                      },
+                      "showPoints": "never",
+                      "spanNulls": false,
+                      "stacking": {
+                        "group": "A",
+                        "mode": "none"
+                      },
+                      "thresholdsStyle": {
+                        "mode": "off"
+                      }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green"
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 11
+                },
+                "id": 10,
+                "options": {
+                  "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                  },
+                  "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                  }
+                },
+                "pluginVersion": "9.0.5",
+                "targets": [
+                  {
+                    "alias": "Original theta N2",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_5"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
+                  },
+                  {
+                    "alias": "Exstimated theta N2",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_35"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
+                  }
+                ],
+                "title": "Node 2 - imag",
+                "type": "timeseries"
+              }
+            ],
+            "title": "Node 2",
+            "type": "row"
+          },
+          {
+            "collapsed": false,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 10
             },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
+            "id": 17,
+            "panels": [],
+            "title": "Node 3",
+            "type": "row"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "kvolt"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 11
+            },
+            "id": 14,
             "options": {
-              "alertThreshold": true
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
             },
-            "percentage": false,
-            "pluginVersion": "7.4.3",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
+            "pluginVersion": "9.0.5",
             "targets": [
               {
-                "alias": "Original N11",
+                "alias": "Original N3",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
                 "groupBy": [
                   {
                     "params": [
@@ -282,7 +895,7 @@ data:
                   [
                     {
                       "params": [
-                        "data_22"
+                        "data_6"
                       ],
                       "type": "field"
                     },
@@ -307,7 +920,11 @@ data:
                 ]
               },
               {
-                "alias": "Estimate N11",
+                "alias": "Estimate N3",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
                 "groupBy": [
                   {
                     "params": [
@@ -333,7 +950,7 @@ data:
                   [
                     {
                       "params": [
-                        "data_44"
+                        "data_36"
                       ],
                       "type": "field"
                     },
@@ -352,62 +969,2039 @@ data:
                 ]
               }
             ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Node 11",
-            "tooltip": {
-              "shared": true,
-              "sort": 0,
-              "value_type": "individual"
+            "title": "Node 3",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
             },
-            "type": "graph",
-            "xaxis": {
-              "buckets": null,
-              "mode": "time",
-              "name": null,
-              "show": true,
-              "values": []
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
             },
-            "yaxes": [
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 20
+            },
+            "id": 15,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
               {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
+                "alias": "Original theta N3",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_7"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
               },
               {
-                "format": "short",
-                "label": null,
-                "logBase": 1,
-                "max": null,
-                "min": null,
-                "show": true
+                "alias": "Exstimated theta N3",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_37"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
               }
             ],
-            "yaxis": {
-              "align": false,
-              "alignLevel": null
-            }
+            "title": "Node 3 - imag",
+            "type": "timeseries"
+          },
+          {
+            "collapsed": false,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 29
+            },
+            "id": 19,
+            "panels": [],
+            "title": "Node 4",
+            "type": "row"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "kvolt"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 30
+            },
+            "id": 20,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
+              {
+                "alias": "Original N4",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_8"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    },
+                    {
+                      "params": [
+                        " / 1000"
+                      ],
+                      "type": "math"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimate N4",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_38"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "title": "Node 4",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 39
+            },
+            "id": 21,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
+              {
+                "alias": "Original theta N4",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_9"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
+              },
+              {
+                "alias": "Exstimated theta N4",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_39"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "title": "Node 4 - imag",
+            "type": "timeseries"
+          },
+          {
+            "collapsed": false,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 48
+            },
+            "id": 19,
+            "panels": [],
+            "title": "Node 5",
+            "type": "row"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "kvolt"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 49
+            },
+            "id": 20,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
+              {
+                "alias": "Original N5",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_10"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    },
+                    {
+                      "params": [
+                        " / 1000"
+                      ],
+                      "type": "math"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimate N5",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_40"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "title": "Node 5",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 58
+            },
+            "id": 21,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
+              {
+                "alias": "Original theta N5",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_11"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimated theta N5",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_41"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "title": "Node 5 - imag",
+            "type": "timeseries"
+          },
+          {
+            "collapsed": false,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 67
+            },
+            "id": 19,
+            "panels": [],
+            "title": "Node 6",
+            "type": "row"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "kvolt"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 68
+            },
+            "id": 20,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
+              {
+                "alias": "Original N6",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_12"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    },
+                    {
+                      "params": [
+                        " / 1000"
+                      ],
+                      "type": "math"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimate N6",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_42"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "title": "Node 6",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "never",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 77
+            },
+            "id": 21,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.5",
+            "targets": [
+              {
+                "alias": "Original theta N6",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_13"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/dpsim-powerflow"
+                  }
+                ]
+              },
+              {
+                "alias": "Estimated theta N6",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "linear"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "mqtt_consumer",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "queryType": "randomWalk",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "data_43"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "last"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "topic",
+                    "operator": "=",
+                    "value": "/se"
+                  }
+                ]
+              }
+            ],
+            "title": "Node 6 - imag",
+            "type": "timeseries"
+          },
+          {
+            "collapsed": true,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 86
+            },
+            "id": 12,
+            "panels": [
+              {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 5
+                },
+                "hiddenSeries": false,
+                "id": 3,
+                "legend": {
+                  "avg": false,
+                  "current": false,
+                  "max": false,
+                  "min": false,
+                  "show": true,
+                  "total": false,
+                  "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                  "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "9.0.5",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                  {
+                    "alias": "Original N11",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_22"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        },
+                        {
+                          "params": [
+                            " / 1000"
+                          ],
+                          "type": "math"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
+                  },
+                  {
+                    "alias": "Estimate N11",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_52"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
+                  }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Node 11",
+                "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                  "mode": "time",
+                  "show": true,
+                  "values": []
+                },
+                "yaxes": [
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  },
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  }
+                ],
+                "yaxis": {
+                  "align": false
+                }
+              },
+              {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 14
+                },
+                "hiddenSeries": false,
+                "id": 13,
+                "legend": {
+                  "avg": false,
+                  "current": false,
+                  "max": false,
+                  "min": false,
+                  "show": true,
+                  "total": false,
+                  "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                  "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "9.0.5",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                  {
+                    "alias": "Original N11",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_23"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
+                  },
+                  {
+                    "alias": "Estimate N11",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_53"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
+                  }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Node 12",
+                "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                  "mode": "time",
+                  "show": true,
+                  "values": []
+                },
+                "yaxes": [
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  },
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  }
+                ],
+                "yaxis": {
+                  "align": false
+                }
+              }
+            ],
+            "title": "Node 11",
+            "type": "row"
+          },
+          {
+            "collapsed": true,
+            "gridPos": {
+              "h": 1,
+              "w": 24,
+              "x": 0,
+              "y": 87
+            },
+            "id": 12,
+            "panels": [
+              {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 5
+                },
+                "hiddenSeries": false,
+                "id": 3,
+                "legend": {
+                  "avg": false,
+                  "current": false,
+                  "max": false,
+                  "min": false,
+                  "show": true,
+                  "total": false,
+                  "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                  "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "9.0.5",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                  {
+                    "alias": "Original N12",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_24"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        },
+                        {
+                          "params": [
+                            " / 1000"
+                          ],
+                          "type": "math"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
+                  },
+                  {
+                    "alias": "Estimate N12",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_54"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
+                  }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Node 12",
+                "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                  "mode": "time",
+                  "show": true,
+                  "values": []
+                },
+                "yaxes": [
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  },
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  }
+                ],
+                "yaxis": {
+                  "align": false
+                }
+              },
+              {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                  "h": 9,
+                  "w": 24,
+                  "x": 0,
+                  "y": 14
+                },
+                "hiddenSeries": false,
+                "id": 13,
+                "legend": {
+                  "avg": false,
+                  "current": false,
+                  "max": false,
+                  "min": false,
+                  "show": true,
+                  "total": false,
+                  "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                  "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "9.0.5",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                  {
+                    "alias": "Original N12",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "A",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_25"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/dpsim-powerflow"
+                      }
+                    ]
+                  },
+                  {
+                    "alias": "Estimate N12",
+                    "datasource": {
+                      "type": "influxdb",
+                      "uid": "P951FEA4DE68E13C5"
+                    },
+                    "groupBy": [
+                      {
+                        "params": [
+                          "$__interval"
+                        ],
+                        "type": "time"
+                      },
+                      {
+                        "params": [
+                          "linear"
+                        ],
+                        "type": "fill"
+                      }
+                    ],
+                    "hide": false,
+                    "measurement": "mqtt_consumer",
+                    "orderByTime": "ASC",
+                    "policy": "default",
+                    "queryType": "randomWalk",
+                    "refId": "B",
+                    "resultFormat": "time_series",
+                    "select": [
+                      [
+                        {
+                          "params": [
+                            "data_55"
+                          ],
+                          "type": "field"
+                        },
+                        {
+                          "params": [],
+                          "type": "last"
+                        }
+                      ]
+                    ],
+                    "tags": [
+                      {
+                        "key": "topic",
+                        "operator": "=",
+                        "value": "/se"
+                      }
+                    ]
+                  }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Node 12",
+                "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                  "mode": "time",
+                  "show": true,
+                  "values": []
+                },
+                "yaxes": [
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  },
+                  {
+                    "format": "short",
+                    "logBase": 1,
+                    "show": true
+                  }
+                ],
+                "yaxis": {
+                  "align": false
+                }
+              }
+            ],
+            "title": "Node 12",
+            "type": "row"
           }
         ],
         "refresh": false,
-        "schemaVersion": 27,
+        "schemaVersion": 36,
         "style": "dark",
         "tags": [],
         "templating": {
           "list": []
         },
         "time": {
-          "from": "2021-03-25T11:42:34.842Z",
-          "to": "2021-03-25T11:45:15.486Z"
+          "from": "now-5m",
+          "to": "now"
         },
         "timepicker": {},
         "timezone": "",
-        "title": "Pyvolt-DPsim-Demo",
-        "uid": "eOcXX7wGk",
-        "version": 1
+        "title": "Pyvolt-DPsim-Demo-new Copy",
+        "uid": "qHCj-KiVk",
+        "version": 1,
+        "weekStart": ""
       }
