@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq
+  name: mosquitto
 spec:
   selector:
-    app: rabbitmq
+    app: mosquitto
   ports:
-    - name: "5672"
+    - name: "1883"
       protocol: TCP
-      port: 5672 
+      port: 1883
