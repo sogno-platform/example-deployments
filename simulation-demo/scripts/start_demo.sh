@@ -2,10 +2,8 @@
 set -o nounset
 set -o errexit
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-pushd $SCRIPT_DIR && echo "Changed to $SCRIPT_DIR"
-
-minikube ssh docker pull 192.168.49.2:5000/dpsim:worker
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+pushd $SCRIPT_DIR &> /dev/null
 
 echo "Starting mosquitto"
 ../mosquitto/deploy.sh &&
@@ -18,6 +16,6 @@ echo "Starting minio" &&
 echo "Starting file service" &&
 ../file-service/deploy.sh &&
 echo "Starting dpsim api" &&
-helm install dpsim-api sogno/dpsim-api --values=../dpsim-api/values.yaml &&
+helm install dpsim-api sogno/dpsim-api &&
 echo "Starting dpsim worker" &&
-helm install dpsim-worker sogno/dpsim-worker --values=../dpsim-worker/values.yaml
+helm install dpsim-worker sogno/dpsim-worker
