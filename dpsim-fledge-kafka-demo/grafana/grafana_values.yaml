@@ -1,0 +1,26 @@
+service:
+  type: NodePort
+  nodePort: 31230
+
+datasources: 
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: InfluxDB
+      type: influxdb
+      url: http://influxdb:8086
+      access: proxy
+      database: telegraf
+      user: telegraf
+      password: telegraf
+      jsonData:
+        httpMode: GET
+
+adminUser: demo
+adminPassword: demo
+
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+

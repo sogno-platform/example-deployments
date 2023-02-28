@@ -1,0 +1,17 @@
+{
+  "protocol_translation": {
+    "name": "iec104_to_pivot",
+    "version": "1.0",
+    "mapping": {
+      "data_object_header": {
+        "doh_type": "type_id",
+        "doh_ca": "ca"
+      },
+      "data_object_item": {
+        "doi_ioa": "ioa",
+        "doi_value": "value",
+        "doi_ts": "time_marker"
+      }
+    }
+  }
+}

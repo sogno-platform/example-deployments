@@ -1,0 +1,188 @@
+{
+  "exchanged_data": {
+    "name": "iec104client",
+    "version": "1.0",
+    "asdu_list": [
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "00-magnitude",
+        "ioa": 4202832
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "00-phase",
+        "ioa": 4202833
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "01-magnitude",
+        "ioa": 4202834
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "01-phase",
+        "ioa": 4202835
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "02-magnitude",
+        "ioa": 4202836
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "02-phase",
+        "ioa": 4202837
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "03-magnitude",
+        "ioa": 4202838
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "03-phase",
+        "ioa": 4202839
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "04-magnitude",
+        "ioa": 4202840
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "04-phase",
+        "ioa": 4202841
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "05-magnitude",
+        "ioa": 4202842
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "05-phase",
+        "ioa": 4202843
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "06-magnitude",
+        "ioa": 4202844
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "06-phase",
+        "ioa": 4202845
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "07-magnitude",
+        "ioa": 4202846
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "07-phase",
+        "ioa": 4202847
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "08-magnitude",
+        "ioa": 4202848
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "08-phase",
+        "ioa": 4202849
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "09-magnitude",
+        "ioa": 4202850
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "09-phase",
+        "ioa": 4202851
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "10-magnitude",
+        "ioa": 4202852
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "10-phase",
+        "ioa": 4202853
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "11-magnitude",
+        "ioa": 4202854
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "11-phase",
+        "ioa": 4202855
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "12-magnitude",
+        "ioa": 4202856
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "12-phase",
+        "ioa": 4202857
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "13-magnitude",
+        "ioa": 4202858
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "13-phase",
+        "ioa": 4202859
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "14-magnitude",
+        "ioa": 4202860
+      },
+      {
+        "ca": 41025,
+        "type_id": "M_ME_TF_1",
+        "label": "14-phase",
+        "ioa": 4202861
+      }
+    ]
+  }
+}
