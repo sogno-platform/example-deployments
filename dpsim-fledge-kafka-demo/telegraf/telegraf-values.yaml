@@ -1,0 +1,67 @@
+config:
+  outputs:
+    - influxdb:
+        urls:
+          - "http://influxdb:8086"
+        database: "telegraf"
+        skip_database_creation: false
+        username: "telegraf"
+        password: "telegraf"
+  inputs:
+    - statsd:
+        service_address: ":8125"
+        percentiles:
+          - 50
+          - 95
+          - 99
+        metric_separator: "_"
+        allowed_pending_messages: 10000
+        percentile_limit: 1000
+    - kafka_consumer:
+        brokers:
+          - "kafka.default.svc.cluster.local:9092"
+        topics:
+          - "Fledge"
+        version: "3.3.1"
+        data_format: "json"
+        json_string_fields: # these will be decoded by starlark
+          - "asset"
+          - "data_object_header"
+          - "data_object_item"
+  processors:
+    - starlark:
+        source: |
+          load('time.star', 'time')
+          load('json.star', 'json')
+
+          def parse_timestamp(ts):
+            year, _, ts = ts.partition('-')
+            month, _, ts = ts.partition('-')
+            day, _, ts = ts.partition(' ')
+            hour, _, ts = ts.partition(':')
+            minute, _, ts = ts.partition(':')
+            second, _, millisecond = ts.partition('.')
+            ts = time.time(**{
+              "year": int(year),
+              "month": int(month),
+              "day": int(day),
+              "hour": int(hour),
+              "minute": int(minute),
+              "second": int(second),
+              "nanosecond": 1000*int(millisecond),
+            })
+            return ts.unix_nano
+
+          def apply(metric):
+            if metric.name != 'kafka_consumer':
+              return [metric]
+            m = Metric(metric.fields['asset'])
+            doi = json.decode(metric.fields['data_object_item'])
+            doh = json.decode(metric.fields['data_object_header'])
+            m.time = parse_timestamp(doi.pop('doi_ts'))
+            m.fields.update(doh)
+            m.fields.update(doi)
+            return [m]
+
+
+

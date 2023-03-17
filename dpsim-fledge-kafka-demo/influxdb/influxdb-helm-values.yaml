@@ -1,0 +1,8 @@
+setDefaultUser:
+  enabled: true
+persistence:
+  enabled: true
+  size: 2Gi
+  user:
+    username: "admin"
+    

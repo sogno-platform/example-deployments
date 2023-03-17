@@ -1,0 +1,7 @@
+{
+  "tls_conf:": {
+    "private_key": "server-key.pem",
+    "server_cert": "server.cer",
+    "ca_cert": "root.cer"
+  }
+}
