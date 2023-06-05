@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-v3
+  namespace: platone-wp5-balancer-dev-v3
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # type of authentication
+    # nginx.ingress.kubernetes.io/auth-type: basic
+    # name of the secret that contains the user/password definitions
+    nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
+    # message to display with an appropriate context why the authentication is required
+    # nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - this is a private API'
+spec:
+  tls:
+    - hosts:
+      - v3.wp5.platone-dsotp.k8s.eonerc.rwth-aachen.de
+      secretName: letsencrypt-dsotp-api
+  rules:
+  - host: v3.wp5.platone-dsotp.k8s.eonerc.rwth-aachen.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: platone-wp5-bal-dev-v3
+            port: 
+              number: 8080
