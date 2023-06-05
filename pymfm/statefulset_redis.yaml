@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pymfm-redis
+spec:
+  selector:
+    matchLabels:
+      run: pymfm-redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: pymfm-redis
+    spec:
+      securityContext:
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+        - name: pymfm-redis
+          image: bitnami/redis
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: false
+          ports:
+            - containerPort: 6379
+          readinessProbe:
+            exec:
+              command:
+              - echo
+              - hello
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 5
+          livenessProbe:
+            exec:
+              command:
+              - echo
+              - hello
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 200m
+              memory: 250Mi
+            limits:
+              cpu: 1
+              memory: 1000Mi
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pymfm-redis-auth
+                  key: PASSWORD
+          volumeMounts:
+            - name: redis-data
+              mountPath: /bitnami/redis/data
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi

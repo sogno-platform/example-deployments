@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pymfm-api
+spec:
+  selector:
+    matchLabels:
+      run: pymfm-api
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        run: pymfm-api
+    spec:
+      securityContext:
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+        - name: pymfm-api
+          image: sogno/pymfm:3.3
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              # Give a proper end-point where the service can be check against. / is template only.
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              # Give a proper end-point where the service can be check against. / is template only.
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: 200m
+              memory: 250Mi
+            limits:
+              cpu: 1
+              memory: 1000Mi
+          env:
+            - name: BALANCING_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: pymfm-api-auth
+                  key: USERNAME
+            - name: BALANCING_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pymfm-api-auth
+                  key: PASSWORD
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pymfm-redis-auth
+                  key: PASSWORD
+            - name: REDIS_HOST
+              value: pymfm-redis
+          volumeMounts:
+          - mountPath: /tmp
+            name: tmp
+      # imagePullSecrets:
+      #   - name: regcred
+      restartPolicy: Always
+      volumes:
+      - name: tmp
+        emptyDir: {}

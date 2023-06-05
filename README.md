@@ -11,3 +11,4 @@ More examples to come soon!
 - [PMU Data Visualization](pmu-data-visualization)
 - [Pyvolt DPsim Demo](pyvolt-dpsim-demo)
 - [Simulation Demo](simulation-demo)
+- [Flexibility asset optimizer](pymfm)
