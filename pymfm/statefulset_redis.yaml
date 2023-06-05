@@ -26,26 +26,26 @@ spec:
             readOnlyRootFilesystem: false
           ports:
             - containerPort: 6379
-          # readinessProbe:
-          #   exec:
-          #     command:
-          #     - echo
-          #     - hello
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 10
-          #   timeoutSeconds: 3
-          #   successThreshold: 1
-          #   failureThreshold: 5
-          # livenessProbe:
-          #   exec:
-          #     command:
-          #     - echo
-          #     - hello
-          #   initialDelaySeconds: 30
-          #   periodSeconds: 10
-          #   timeoutSeconds: 3
-          #   successThreshold: 1
-          #   failureThreshold: 2
+          readinessProbe:
+            exec:
+              command:
+              - echo
+              - hello
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 5
+          livenessProbe:
+            exec:
+              command:
+              - echo
+              - hello
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 2
           resources:
             requests:
               cpu: 200m
@@ -62,18 +62,7 @@ spec:
           volumeMounts:
             - name: redis-data
               mountPath: /bitnami/redis/data
-            # - name: tmp1
-            #   mountPath: /opt/bitnami/redis/logs
-            # - name: tmp2
-            #   mountPath: /opt/bitnami/redis/tmp
-      # imagePullSecrets:
-      #   - name: regcred
       restartPolicy: Always
-      # volumes:
-      # - name: tmp1
-      #   emptyDir: {}
-      # - name: tmp2
-      #   emptyDir: {}
   volumeClaimTemplates:
   - metadata:
       name: redis-data
