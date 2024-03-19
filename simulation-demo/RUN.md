@@ -3,32 +3,30 @@
 #### Set up the simulation environment
 
 ```bash
-./scripts/start_demo.sh
+helm repo add sogno https://sogno-platform.github.io/helm-charts/
+helm install dpsim sogno/dpsim
 ```
 
-This should produce the output in the file linked below. It is not included here because it is too long. Read the output carefully. If it produces a different output, something has gone wrong.
-
-[Expected output from start_demo.sh](StartDemo.md)
+This installs the dpsim service with all its dependencies.
 
 ```bash
 $ kubectl get pods
 ```
 
 This should produce similar output to the block below. Pay particular attention to the "READY" and "STATUS" columns.
-They will tell you if everything is proceeding as planned.
+They will tell you if everything is proceeding as planned. If the pod called `dpsim-worker-...` has restarted some times that is no reason for concern. If it how ever keeps restarting even after all the other pods are running and no additional input given, please contact the developers on GitHub via an issue.
 
 ```bash
-NAME                                READY    STATUS     RESTARTS AGE
-dpsim-api-5f64497c77-xbv2j          1/1      Running    0        81m
-dpsim-worker-67745b846d-vphfz       1/1      Running    0        81m
-minio-fdf94ddbf-bdkz7               1/1      Running    0        93m
-mosquitto-68cd9f467b-k4tzs          1/1      Running    0        93m
-rabbitmq-55985c79c4-gwclk           1/1      Running    0        93m
-redis-master-0                      1/1      Running    0        93m
-redis-replicas-0                    1/1      Running    0        93m
-redis-replicas-1                    1/1      Running    0        92m
-redis-replicas-2                    1/1      Running    0        92m
-sogno-file-service-5987c95cc5-6rw66 1/1      Running    0        93m
+NAME                                  READY   STATUS    RESTARTS      AGE
+dpsim-api-8589ff4996-dkzwv            1/1     Running   0             49m
+minio-6f98c565d-j4xpc                 1/1     Running   0             49m
+sogno-file-service-57b5b4d948-6tlsp   1/1     Running   0             49m
+redis-master-0                        1/1     Running   0             49m
+rabbitmq-0                            1/1     Running   0             49m
+redis-replicas-0                      1/1     Running   0             49m
+redis-replicas-1                      1/1     Running   0             49m
+redis-replicas-2                      1/1     Running   0             48m
+dpsim-worker-7d78cf6bf5-b2t28         1/1     Running   4 (29m ago)   49m
 ```
 
 #### The swagger UI
