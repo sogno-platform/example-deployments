@@ -58,7 +58,7 @@ Create database and user telegraf and grant access
 ```
 
 ## TS-DB Adapter
- Due to limitations with nested `json`, we use a [patched](https://hub.docker.com/r/rwthacs/telegraf-sogno) version of [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) as a database adapter.
+ Due to limitations with nested `json`, we use a [patched](https://hub.docker.com/r/sogno/telegraf-sogno) version of [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) as a database adapter.
  This version is compatible with the current SOGNO PMU data specification.
 
 But first, we create a configmap for our telegraf instance. 

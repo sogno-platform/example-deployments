@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: telegraf-sogno
-          image: rwthacs/telegraf-sogno
+          image: sogno/telegraf-sogno
           resources: {}
           env:
             - name: HOSTNAME
