@@ -17,14 +17,19 @@ spec:
           image: sogno/file-service
           ports:
             - containerPort: 8080
-          volumeMounts:
-            - name:      aws-config-volume
-              mountPath: /usr/src/app/.aws
-      volumes:
-        - name: aws-config-volume
-          configMap:
-            name: aws-fs-config
-            defaultMode: 511
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root-user
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root-password
+              
+  
 
 ---
 apiVersion: v1
@@ -34,6 +39,7 @@ metadata:
 spec:
   selector:
     app: sogno-file-service
+  type: NodePort
   ports:
     - name: "8080"
       protocol: TCP

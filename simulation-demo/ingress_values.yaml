@@ -1,0 +1,38 @@
+# set api to cluster IP
+service:
+  type: ClusterIP
+  port: 8000
+
+
+# set file-service to cluster IP
+file-service:
+  service:
+  type: ClusterIP
+  port: 8080
+
+
+ingress:
+  enabled: True
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: <your host name here>
+      paths:
+        - path: /dpsim/
+          pathType: ImplementationSpecific
+          backend: 
+            service:
+              name: dpsim-api
+              port:
+                number: 8000
+        - path: /files/
+          pathType: ImplementationSpecific
+          backend: 
+            service:
+              name: sogno-file-service
+              port:
+                number: 8080
+                       
+  tls: []
