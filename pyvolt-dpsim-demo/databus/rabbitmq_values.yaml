@@ -10,6 +10,10 @@ service:
 auth:
   username: admin
   password: admin
+  enableLoopbackUser: false
+
+networkPolicy:
+  enabled: false
 
 persistence:
   enabled: false

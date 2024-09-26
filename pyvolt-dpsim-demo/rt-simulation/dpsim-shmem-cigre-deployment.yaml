@@ -20,7 +20,7 @@ spec:
           image: sogno/dpsim-shmem
           resources:
             requests:
-             memory: 2Gi
+              memory: 2Gi
             limits:
               hugepages-2Mi: 2Gi
               memory: 2Gi

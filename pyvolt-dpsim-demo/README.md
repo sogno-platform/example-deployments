@@ -56,16 +56,23 @@ HugePages_Rsvd:        0
 HugePages_Surp:        0
 Hugepagesize:       2048 kB
 Hugetlb:         2097152 kB
-
+```
 If you don't see 1024 next to HugePages_Total, you may need to restart
 your system and try again with a fresh boot.
 
+```
 # Restart k3s service to apply changes
 sudo systemctl restart k3s
 
 # Ensure the KUBECONFIG env is still set correctly
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 ```
+
+If this still does not work add
+```
+vm.nr_hugepages = 1024
+```
+at the top of `/etc/sysctl.conf`
 
 ## Manual Chart Installation
 
