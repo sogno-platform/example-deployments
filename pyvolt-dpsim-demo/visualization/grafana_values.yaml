@@ -15,6 +15,23 @@ datasources:
       password: telegraf
       jsonData:
         httpMode: GET
+grafana.ini:
+    auth:
+      signout_redirect_url: "http://localhost:31250/auth/realms/grafana/protocol/openid-connect/logout?redirect_uri=http%3A%2F%2Flocalhost%3A31230%2Flogin"
+
+    server:
+      root_url: http://localhost:31230/
+    auth.generic_oauth:
+      enabled: true
+      name: "Oauth"
+      client_id: "grafana"
+      client_secret: "Z6RT9ViirQTPgV9AQqoZwGm38XHyUROY"
+      auth_url: "http://localhost:31250/auth/realms/grafana/protocol/openid-connect/auth"
+      token_url: "http://my-release-keycloak.default.svc.cluster.local/auth/realms/grafana/protocol/openid-connect/token"
+      api_url: "http://localhost:31250/auth/realms/grafana/protocol/openid-connect/userinfo"
+      scopes: "openid email profile"
+
+
 
 adminUser: demo
 adminPassword: demo
@@ -23,4 +40,3 @@ sidecar:
   dashboards:
     enabled: true
     label: grafana_dashboard
-
